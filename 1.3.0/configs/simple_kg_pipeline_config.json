@@ -1,0 +1,90 @@
+{
+    "version_": "1",
+    "template_": "SimpleKGPipeline",
+    "neo4j_config": {
+        "params_": {
+            "uri": "bolt://localhost:7687",
+            "user": "neo4j",
+            "password": "password"
+        }
+    },
+    "llm_config": {
+        "class_": "OpenAILLM",
+        "params_": {
+            "model_name": "gpt-4o",
+            "api_key": "sk-...",
+            "model_params": {
+                "temperature": 0,
+                "max_tokens": 2000,
+                "response_format": {"type": "json_object"}
+            }
+        }
+    },
+    "embedder_config": {
+        "class_": "OpenAIEmbeddings",
+        "params_": {
+            "api_key": "sk-..."
+        }
+    },
+    "from_pdf": false,
+    "entities": [
+        "Person",
+        {
+            "label": "House",
+            "description": "Family the person belongs to",
+            "properties": [
+                {
+                    "name": "name",
+                    "type": "STRING"
+                }
+            ]
+        },
+        {
+            "label": "Planet",
+            "properties": [
+                {
+                    "name": "name",
+                    "type": "STRING"
+                },
+                {
+                    "name": "weather",
+                    "type": "STRING"
+                }
+            ]
+        }
+    ],
+    "relations": [
+        "PARENT_OF",
+        {
+            "label": "HEIR_OF",
+            "description": "Used for inheritor relationship between father and sons"
+        },
+        {
+            "label": "RULES",
+            "properties": [
+                {
+                    "name": "fromYear",
+                    "type": "INTEGER"
+                }
+            ]
+        }
+    ],
+    "potential_schema": [
+        [
+            "Person",
+            "PARENT_OF",
+            "Person"
+        ],
+        [
+            "Person",
+            "HEIR_OF",
+            "House"
+        ],
+        [
+            "House",
+            "RULES",
+            "Planet"
+        ]
+    ],
+    "perform_entity_resolution": true
+}
