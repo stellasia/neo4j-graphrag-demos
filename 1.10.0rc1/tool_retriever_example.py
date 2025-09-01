@@ -110,10 +110,10 @@ with neo4j.GraphDatabase.driver(URI, auth=AUTH) as driver:
                 name="movie_data_from_title",
                 description="Fetch movie information from its title",
             ),
-            # t2c_retriever.convert_to_tool(
-            #     name="t2c_retriever",
-            #     description="Use this tool when no other tool can help. It will directly try to build a Cypher query to query the graph."
-            # )
+            t2c_retriever.convert_to_tool(
+                name="t2c_retriever",
+                description="Use this tool when no other tool can help. It will directly try to build a Cypher query to query the graph."
+            ),
         ]
     )
 
