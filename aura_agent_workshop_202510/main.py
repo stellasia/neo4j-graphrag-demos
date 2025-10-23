@@ -54,7 +54,7 @@ async def call_aura_agent_api(question: str) -> dict[str, Any]:
                     "Authorization": f"Bearer {token}"
                 },
                 json={"input": question},
-                timeout=60.0
+                timeout=60*5,  # 5 min
             )
 
             response.raise_for_status()
