@@ -1,0 +1,4 @@
+# using Python 3.12
+neo4j-graphrag[openai,fuzzy-matching]==1.10.1
+neo4j-viz==0.6.0
+python-dotenv
