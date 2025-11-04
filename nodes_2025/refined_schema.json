@@ -1,0 +1,129 @@
+{
+    "node_types": [
+      {
+        "label": "HumanActivity",
+        "description": "Human actions that emit greenhouse gases (e.g., Fossil fuel combustion, Deforestation).",
+        "properties": [
+          {"name": "name", "type": "STRING", "required": true},
+          {"name": "description", "type": "STRING"}
+        ]
+      },
+      {
+        "label": "Emission",
+        "description": "Instances or categories of greenhouse gas emissions.",
+        "properties": [
+          {"name": "name", "type": "STRING", "required": true},   
+          {"name": "amount", "type": "FLOAT"},
+          {"name": "unit", "type": "STRING"},
+          {"name": "year", "type": "INTEGER"}
+        ]
+      },    
+      {
+        "label": "GreenhouseGas",
+        "description": "Individual greenhouse gases described in the text (CO2, CH4, N2O).",
+        "properties": [
+          {"name": "name", "type": "STRING", "required": true}
+        ]
+      },
+      {
+        "label": "ClimateEvent",
+        "description": "Observable climate change phenomena (e.g., Global warming, Sea level rise).",
+        "properties": [
+          {"name": "name", "type": "STRING", "required": true},
+          {"name": "description", "type": "STRING", "required": false}
+        ]
+      },
+      {
+        "label": "Metric",
+        "description": "Quantitative indicators describing climate events (temperature, ocean heat, sea level).",
+        "properties": [
+          {"name": "name", "type": "STRING", "required": true},
+          {"name": "value", "type": "FLOAT"},
+          {"name": "unit", "type": "STRING"},
+          {"name": "year", "type": "INTEGER"}
+        ]
+      },
+      {
+        "label": "RenewableSource",
+        "description": "Energy sources reducing emissions (solar, wind, hydro).",
+        "properties": [
+          {"name": "name", "type": "STRING", "required": true}
+        ],
+        "additional_properties": true
+      },
+      {
+        "label": "Country",
+        "description": "Countries or regions mentioned in connection with climate observations or agreements.",
+        "properties": [
+          {"name": "name", "type": "STRING", "required": true}
+        ],
+        "additional_properties": true
+      },
+      {
+        "label": "Agreement",
+        "description": "International or national frameworks aimed at reducing climate change (e.g., Paris Agreement).",
+        "properties": [
+          {"name": "name", "type": "STRING", "required": true},
+          {"name": "year", "type": "INTEGER"}
+        ]
+      }
+    ],
+  
+    "relationship_types": [
+      {
+        "label": "CAUSES_EMISSION", 
+        "description": "Human activity generates a specific emission.",
+        "properties": []
+      },
+      {
+        "label": "RELEASES_GAS", 
+        "description": "Emission releases a greenhouse gas.",
+        "properties": []
+      },
+      {
+        "label": "DRIVES_EVENT", 
+        "description": "Greenhouse gas drives or contributes to a climate change event.",
+        "properties": []
+      },
+      {
+        "label": "CHARACTERIZED_BY", 
+        "description": "Climate event is described by a metric such as temperature or sea level.",
+        "properties": []
+      },
+      {
+        "label": "REDUCES_IMPACT", 
+        "description": "Renewable source lessens the intensity or likelihood of a climate event.",
+        "properties": []
+      },
+      {
+        "label": "OBSERVED_IN", 
+        "description": "Climate event observed or measured in a particular country or region.",
+        "properties": []
+      },
+      {
+        "label": "PARTICIPATES_IN", 
+        "description": "Country is a signatory or participant in an agreement.",
+        "properties": []    
+      },
+      {
+        "label": "TARGETS_EVENT", 
+        "description": "Agreement aims to limit or reduce a climate event.",
+        "properties": []
+      }
+    ],
+  
+    "patterns": [
+      ["HumanActivity", "CAUSES_EMISSION", "Emission"],
+      ["Emission", "RELEASES_GAS", "GreenhouseGas"],
+      ["GreenhouseGas", "DRIVES_EVENT", "ClimateEvent"],
+      ["ClimateEvent", "CHARACTERIZED_BY", "Metric"],
+      ["RenewableSource", "REDUCES_IMPACT", "ClimateEvent"],
+      ["ClimateEvent", "OBSERVED_IN", "Country"],
+      ["Country", "PARTICIPATES_IN", "Agreement"],
+      ["Agreement", "TARGETS_EVENT", "ClimateEvent"]
+    ],
+  
+    "additional_node_types": false,
+    "additional_relationship_types": false,
+    "additional_patterns": false
+  } 
